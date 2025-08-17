@@ -16,7 +16,10 @@ public class EmailSendConsumer {
             attempts = "5", // 총 5번까지 재시작
             // 1초 간격 * multiplier 2 => 1초 .. 2초 .. 4초.. 8초 .. 16초 .. 순서로 설정됨
             // 현업에서는 재시도를 3~4회로 설정해둔다고함.
-            backoff = @Backoff(delay = 1000, multiplier = 2)
+            backoff = @Backoff(delay = 1000, multiplier = 2),
+
+            //email.send-dlt 로 기본 생성된다 suffix 를 .dlt 로 설정하여 email.send.dlt 로 생성되도록 설정한다.
+            dltTopicSuffix = ".dlt"
     )
     public void consume(String message) {
         System.out.println("Kafka로 부터 받아온 메세지 : " + message);
